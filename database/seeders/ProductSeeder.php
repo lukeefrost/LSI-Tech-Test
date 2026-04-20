@@ -12,9 +12,9 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        Product::firstOrCreate(
-            ['id' => 1],
+        $products = [
             [
+                'id' => 1,
                 'name' => 'Example Product 1',
                 'slug' => 'example-product-1',
                 'description' => '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p><p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend</p>',
@@ -25,12 +25,9 @@ class ProductSeeder extends Seeder
                     'example-product-1-black.jpg',
                     'example-product-1-white.jpg',
                 ],
-            ]
-        );
-
-        Product::firstOrCreate(
-            ['id' => 2],
+            ],
             [
+                'id' => 2,
                 'name' => 'Example Product 2',
                 'slug' => 'example-product-2',
                 'description' => '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p><p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend</p>',
@@ -44,12 +41,9 @@ class ProductSeeder extends Seeder
                     'example-product-2-orange.jpg',
                     'example-product-2-red.jpg',
                 ],
-            ]
-        );
-
-        Product::firstOrCreate(
-            ['id' => 3],
+            ],
             [
+                'id' => 3,
                 'name' => 'Example Product 3',
                 'slug' => 'example-product-3',
                 'description' => '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p><p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend</p>',
@@ -62,12 +56,9 @@ class ProductSeeder extends Seeder
                     'example-product-3-grey.jpg',
                     'example-product-3-red.jpg',
                 ],
-            ]
-        );
-
-        Product::firstOrCreate(
-            ['id' => 4],
+            ],
             [
+                'id' => 4,
                 'name' => 'Example Product 4',
                 'slug' => 'example-product-4',
                 'description' => '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p><p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend</p>',
@@ -78,7 +69,34 @@ class ProductSeeder extends Seeder
                     'example-product-4-black.jpg',
                     'example-product-4-red.jpg',
                 ],
-            ]
+            ],
+        ];
+
+        foreach ($products as $data) {
+            $this->createProductWithImages($data);
+        }
+    }
+
+    /**
+     * Add Images to Products
+     * @param array $data
+     *
+     * @return void
+     */
+    private function createProductWithImages(array $data): void
+    {
+        $images = $data['images'] ?? [];
+        unset($data['images']);
+
+        $product = Product::firstOrCreate(
+            ['id' => $data['id']],
+            $data
         );
+
+        foreach ($images as $image) {
+            $product->images()->firstOrCreate([
+                'path' => $image,
+            ]);
+        }
     }
 }
