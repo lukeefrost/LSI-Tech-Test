@@ -10,7 +10,7 @@ class ProductImage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'filepath'];
+    protected $fillable = ['product_id', 'path', 'sort_order'];
 
     public function product(): BelongsTo
     {
