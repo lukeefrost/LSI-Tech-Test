@@ -7,7 +7,7 @@
     <style>
         body { font-family: Arial, sans-serif; color: #222; background: #f5f5f5; margin: 0; padding: 24px; }
         .email-wrapper { max-width: 600px; margin: 0 auto; background: #fff; border-radius: 6px; overflow: hidden; border: 1px solid #e0e0e0; }
-        .email-header { background: #ec008c; padding: 24px 32px; }
+        .email-header { padding: 24px 32px; }
         .email-header img { height: 32px; }
         .email-body { padding: 32px; }
         .email-body h1 { font-size: 20px; color: #222; margin: 0 0 24px; }
@@ -16,7 +16,7 @@
         .email-meta p { margin: 0 0 8px; font-size: 14px; }
         .email-meta p:last-child { margin-bottom: 0; }
         .email-meta strong { color: #555; }
-        .message-block { background: #f9f9f9; border-left: 4px solid #ec008c; padding: 16px; border-radius: 0 4px 4px 0; }
+        .message-block { background: #f9f9f9; padding: 16px; border-radius: 0 4px 4px 0; }
     </style>
 </head>
 <body>

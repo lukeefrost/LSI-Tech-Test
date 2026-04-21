@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SendEnquiryRequest;
-use App\Mail\ProductEnquiry;
+use App\Mail\ProductEnquiryEmail;
 use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -31,7 +31,15 @@ class ProductController extends Controller
      */
     public function sendEnquiry(SendEnquiryRequest $request, Product $product): RedirectResponse
     {
-        $validated = $request->validated();
+        $data = $request->validated();
+
+        Mail::to(config('mail.enquiry_email'))
+            ->send(new ProductEnquiryEmail(
+                product: $product,
+                name: $data['name'],
+                email: $data['email'],
+                body: $data['message'],
+            ));
 
         return back()->with('enquiry_sent', true);
     }
