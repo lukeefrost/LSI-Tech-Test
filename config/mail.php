@@ -103,6 +103,8 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'enquiry_email' => env('MAIL_ENQUIRY_RECIPIENT', 'sales@example.com'),
+
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings
