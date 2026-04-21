@@ -6,6 +6,36 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
 
         <div>
+            <div>
+                @if($product->images->isNotEmpty())
+                    <div class="mb-3">
+                        <img id="primary-image"
+                             src="{{ asset('images/product/' . $product->images->first()->path) }}"
+                             alt="{{ $product->name }}"
+                             class="w-full rounded-lg border border-gray-200 object-contain aspect-square bg-gray-50">
+                    </div>
+
+                    @if($product->images->count() > 1)
+                        <div class="flex gap-2 flex-wrap">
+                            @foreach($product->images as $image)
+                                <button onclick="document.getElementById('primary-image').src='{{ asset('images/product/' . $image->path) }}'"
+                                        class="w-16 h-16 border-2 border-gray-200 rounded hover:border-brand focus:border-brand transition-colors overflow-hidden focus:outline-none">
+                                    <img src="{{ asset('images/product/' . $image->path) }}"
+                                         alt="{{ $product->name }}"
+                                         class="w-full h-full object-contain bg-gray-50">
+                                </button>
+                            @endforeach
+                        </div>
+                    @endif
+                @elseif($product->image)
+                    <img src="{{ asset('images/product/' . $product->image) }}"
+                         alt="{{ $product->name }}"
+                         class="w-full rounded-lg border border-gray-200 object-contain aspect-square bg-gray-50">
+                @endif
+            </div>
+
+            <br>
+
             <div class="prose max-w-none mb-6">
                 {!! $product->description !!}
             </div>
